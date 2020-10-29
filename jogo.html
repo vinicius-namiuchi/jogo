@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <title>Jogo</title>
+</head>
+<body>
+    <canvas id="meu_canvas" width="300" height="300">
+        Seu navegador não suporta o Canvas do HTML5. <br />
+        Procure atualizá-lo
+    </canvas>
+    <script>
+        var canvas = document.getElementById('meu_canvas');
+        var context = canvas.getContext('2d');
+
+        var x = 100;
+        var y = 100;
+        var raio = 5;
+
+        var anterior = new Date().getTime();
+
+        requestAnimationFrame(mexerBola);
+
+        function mexerBola(){
+
+            var agora = new Date().getTime();
+
+            var decorrido = agora - anterior;
+
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            context.beginPath();
+            context.arc(x, y, raio, 0, Math.PI*2);
+            context.fill();
+
+            var velocidade = 20;
+            x += velocidade * decorrido / 1000;
+
+            anterior = agora;
+
+            requestAnimationFrame(mexerBola); 
+        }
+    </script>
+</body>
+</html>
