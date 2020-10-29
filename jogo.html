@@ -7,41 +7,33 @@
     <script src="bola.js"></script>
 </head>
 <body>
-    <canvas id="meu_canvas" width="300" height="300">
-        Seu navegador não suporta o Canvas do HTML5. <br />
-        Procure atualizá-lo
+    <canvas id="canvas_animacao" width="500" height="500">
     </canvas>
     <script>
-        var canvas = document.getElementById('meu_canvas');
+        var canvas = document.getElementById('canvas_animacao');
         var context = canvas.getContext('2d');
 
-        var x = 100;
-        var y = 100;
-        var raio = 5;
+        var b1 = new Bola(context);
+        b1.x = 100;
+        b1.y = 200;
+        b1.velocidadeX = 20;
+        b1.velocidadeY = -10;
+        b1.cor = 'red';
+        b1.raio = 20;
 
-        var anterior = new Date().getTime();
+        var b2 = new Bola(context);
+        b2.x = 200;
+        b2.y = 100;
+        b2.velocidadeX = -10;
+        b2.velocidadeY = 20;
+        b2.cor = 'blue';
+        b2.raio = 30;
 
-        requestAnimationFrame(mexerBola);
+        var animacao = new Animacao();
+        animacao.novoSprite(b1);
+        animacao.novoSprite(b2);
 
-        function mexerBola(){
-
-            var agora = new Date().getTime();
-
-            var decorrido = agora - anterior;
-
-            context.clearRect(0, 0, canvas.width, canvas.height);
-
-            context.beginPath();
-            context.arc(x, y, raio, 0, Math.PI*2);
-            context.fill();
-
-            var velocidade = 20;
-            x += velocidade * decorrido / 1000;
-
-            anterior = agora;
-
-            requestAnimationFrame(mexerBola); 
-        }
+        animacao.ligar();
     </script>
 </body>
 </html>
